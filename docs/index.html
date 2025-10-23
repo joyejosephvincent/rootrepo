@@ -3,658 +3,139 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sociyaal | Creative Social Agency</title>
-  <meta name="description" content="Sociyaal is a creative agency at the intersection of social, innovation, and culture. We build brands that soar." />
+  <title>Sociyaal | Coming Soon</title>
+  <meta name="description" content="Sociyaal is crafting a premium, immersive web experience. Launching soon." />
   <meta name="theme-color" content="#8b3ec2" />
-  <meta property="og:title" content="Sociyaal — Creative Social Agency" />
-  <meta property="og:description" content="We make social brands soar." />
+  <meta property="og:title" content="Sociyaal — Coming Soon" />
+  <meta property="og:description" content="We build digital connection for bold brands. Launching soon." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://placehold.co/1200x630/9669ef/ffffff?text=Sociyaal" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Clash+Display:wght@600;700&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Dystopian:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* =============================
-       0) Root, Reset & Theme
-       ============================= */
     :root {
-      --bg: #ffffff;
-      --text: #0d0d0d;
-      --muted: #565661;
-      --surface: #f7f7f9;
-      --border: #e7e7ef;
-      --accent: #8b3ec2; /* purple */
-      --accent-2: #feda00; /* yellow */
-      --shadow-accent: 0 10px 30px rgba(139, 62, 194, .25);
-      --shadow-yellow: 0 10px 30px rgba(254, 218, 0, .25);
-      --radius: 16px;
-      --radius-xl: 24px;
-      --container: 1200px;
-      --font: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      --font-display: 'Clash Display', var(--font);
-    }
-
-    .theme-dark {
-      --bg: #0b0b0f;
-      --text: #f6f6f9;
-      --muted: #b9b9c7;
-      --surface: #13131a;
-      --border: #262633;
-      --accent: #9b5fe0;
-      --accent-2: #ffe066;
-      --shadow-accent: 0 10px 30px rgba(155, 95, 224, .25);
-      --shadow-yellow: 0 10px 30px rgba(255, 224, 102, .2);
+      --bg: #0b0b12;
+      --text: #f7f7fb;
+      --muted: #c9c9d6;
+      --border: #23233a;
+      --accent-gradient: linear-gradient(90deg, #feda00 0%, #8b3ec2 100%);
+      --accent-solid: #feda00;
+      --container: 1100px;
+      --font: 'Dystopian', sans-serif;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: var(--font);
       color: var(--text);
       background: var(--bg);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
 
-    /* Subtle grid + gradient backdrop */
-    body::before {
-      content: "";
-      position: fixed; inset: 0; z-index: -2;
-      background:
-        radial-gradient(60vw 60vw at 80% -10%, rgba(139,62,194,.12), transparent 60%),
-        radial-gradient(50vw 50vw at -10% 30%, rgba(254,218,0,.18), transparent 60%);
-      pointer-events: none;
-      filter: saturate(110%);
-    }
-    body::after {
-      content: "";
-      position: fixed; inset: 0; z-index: -3;
-      background:
-        linear-gradient(transparent 60%, rgba(0,0,0,.05)),
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><path d="M0 63.5h64" stroke="%23e7e7ef" stroke-opacity=".45"/><path d="M63.5 0v64" stroke="%23e7e7ef" stroke-opacity=".45"/></svg>');
-      background-size: auto, 64px 64px;
-      mix-blend-mode: overlay;
-      opacity: .5;
-      pointer-events: none;
+    .backdrop {
+      position: fixed;
+      inset: -20% -10% 0 -10%;
+      z-index: -2;
+      filter: saturate(115%);
     }
 
-    .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
-    section { padding: 100px 0; scroll-margin-top: 100px; }
-    h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; }
-    h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 8vw, 92px); }
-    h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 4.5vw, 48px); text-align: center; margin: 0 0 28px; }
-    h3 { font-weight: 800; font-size: 22px; }
-    p { color: var(--muted); font-size: 18px; line-height: 1.75; }
-    .accent { color: var(--accent); }
-
-    /* =============================
-       1) Header/Nav
-       ============================= */
-    header#navbar {
-      position: fixed; inset: 0 0 auto 0; height: 80px; z-index: 1000;
-      display: flex; align-items: center;
-      transition: backdrop-filter .3s ease, background-color .3s ease, border-color .3s ease;
-      border-bottom: 1px solid transparent;
-    }
-    header#navbar.scrolled {
-      backdrop-filter: blur(10px);
-      background: color-mix(in oklab, var(--bg) 80%, transparent);
-      border-color: var(--border);
-    }
-    .nav-inner { display:flex; align-items:center; justify-content:space-between; gap:16px; }
-    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:900; color:var(--text); }
-    .logo img { height: 36px; width:auto; border-radius: 8px; }
-    .main-nav { display:flex; gap:28px; }
-    .main-nav a { text-decoration:none; color:var(--text); font-weight:700; font-size: 14px; position:relative; }
-    .main-nav a::after { content:""; position:absolute; left:0; bottom:-6px; width:100%; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .25s ease; }
-    .main-nav a:hover::after { transform:scaleX(1); }
-
-    .menu-toggle { display:none; cursor:pointer; width:28px; height:22px; position:relative; }
-    .menu-toggle span { position:absolute; left:0; right:0; height:3px; background:var(--text); border-radius:2px; transition: transform .25s, opacity .25s; }
-    .menu-toggle span:nth-child(1){ top:0; }
-    .menu-toggle span:nth-child(2){ top:9px; }
-    .menu-toggle span:nth-child(3){ bottom:0; }
-    .menu-toggle.active span:nth-child(1){ transform: translateY(9px) rotate(45deg); }
-    .menu-toggle.active span:nth-child(2){ opacity:0; }
-    .menu-toggle.active span:nth-child(3){ transform: translateY(-9px) rotate(-45deg); }
-
-    .mobile-nav { position:fixed; inset:0; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; opacity:0; visibility:hidden; pointer-events:none; transition: .35s ease; z-index: 999; }
-    .mobile-nav.active { opacity:1; visibility:visible; pointer-events:auto; }
-    .mobile-nav a { font-size:32px; font-weight:800; color:var(--text); text-decoration:none; }
-
-    .theme-toggle {
-      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border);
-      border-radius: 999px; cursor:pointer; font-weight:700; background: var(--surface);
-    }
-
-    /* =============================
-       2) Hero
-       ============================= */
-    #home { min-height: 100svh; display:grid; place-items:center; position:relative; }
-
-    /* Floating blob cursor */
     .blob {
-      position: fixed; top: 0; left: 0; width: 420px; height: 420px; border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--accent) 70%, transparent), transparent 60%);
-      filter: blur(60px); opacity: .35; pointer-events: none; transform: translate(-50%, -50%);
-      z-index: -1;
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+    }
+
+    .blob.purple {
+      width: 65vw; height: 65vw; left: -10%; top: -10%;
+      background: radial-gradient(closest-side, #8b3ec2, transparent);
+    }
+
+    .blob.yellow {
+      width: 60vw; height: 60vw; right: -10%; bottom: -5%;
+      background: radial-gradient(closest-side, #feda00, transparent);
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
     }
 
     .hero {
-      text-align:center; display:flex; flex-direction:column; align-items:center; gap:28px; padding: 24px; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 40px 20px;
     }
-    .hero h1 span.gradient {
-      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+
+    h1, p, footer {
+      font-family: var(--font);
     }
-    .hero p { max-width: 70ch; margin: 0 auto; }
-    .cta-row { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
-    .btn { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 22px; border-radius:999px; font-weight:800; text-decoration:none; font-size:14px; transition: transform .2s ease, box-shadow .2s ease, background .2s; }
-    .btn-primary { background: var(--accent); color:#fff; box-shadow: var(--shadow-accent); }
-    .btn-primary:hover { transform: translateY(-2px); }
-    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--accent); }
-    .btn-ghost:hover { background: color-mix(in oklab, var(--accent) 10%, transparent); }
 
-    .hero-stats { display:flex; flex-wrap:wrap; gap:28px 56px; justify-content:center; margin-top: 8px; padding-top: 28px; border-top:1px solid var(--border); }
-    .stat { text-align:center; }
-    .stat .num { font-size: 40px; font-weight: 900; color: var(--accent); }
-    .stat .label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-
-    /* =============================
-       3) About + Clients
-       ============================= */
-    #about .grid { display:grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items:center; }
-    .about-card { background: var(--surface); border:1px solid var(--border); border-radius: var(--radius-xl); padding: 28px; }
-    .clients { display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
-    .client { display:flex; align-items:center; justify-content:center; height: 72px; border-radius: var(--radius); border:1px solid var(--border); background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 92%, transparent), transparent); font-weight:800; color:var(--muted); transition:.25s; }
-    .client:hover { transform: translateY(-4px); border-color: var(--accent); color: var(--text); }
-    .about-img { width:100%; height: 560px; object-fit: cover; border-radius: var(--radius-xl); box-shadow: 0 20px 60px rgba(0,0,0,.12); }
-
-    /* =============================
-       4) Marquee
-       ============================= */
-    .marquee { border-block: 1px solid var(--border); overflow:hidden; white-space: nowrap; }
-    .marquee-track { display:flex; gap: 40px; padding: 28px 0; animation: marquee 28s linear infinite; }
-    .marquee b { font-family: var(--font-display); font-size: clamp(28px, 5vw, 56px); text-transform: uppercase; }
-    .marquee b .dot { width: 8px; height: 8px; display:inline-block; border-radius:50%; background: var(--accent); margin: 0 18px; vertical-align: middle; }
-    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-    /* =============================
-       5) Services
-       ============================= */
-    #services { background: var(--surface); }
-    .services { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 28px; }
-    .card {
-      position: relative; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 26px; transition: .25s;
+    h1 {
+      font-weight: 700;
+      font-size: clamp(42px, 6vw, 80px);
+      line-height: 1.2;
+      margin: 0 0 20px;
     }
-    .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-accent); border-color: color-mix(in oklab, var(--accent) 50%, var(--border)); }
-    .chip { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:800; border:1px solid var(--border); border-radius:999px; padding:6px 10px; color: var(--muted); }
 
-    /* =============================
-       6) Process
-       ============================= */
-    .process { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 28px; }
-    .step { background: var(--surface); border:1px solid var(--border); border-radius: var(--radius); padding: 22px; position:relative; }
-    .step .index { position:absolute; top: 18px; right: 18px; font-weight:900; opacity:.2; color: var(--accent); }
+    .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
 
-    /* =============================
-       7) Portfolio
-       ============================= */
-    #portfolio { background: var(--surface); }
-    .filter { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin: 6px 0 26px; }
-    .filter button { border-radius:999px; border:1px solid var(--border); background:transparent; padding:10px 16px; font-weight:800; cursor:pointer; color:var(--muted); }
-    .filter button.active, .filter button:hover { background: var(--accent); color:#fff; border-color: var(--accent); }
-    .work { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
-    .tile { position:relative; border-radius: var(--radius-xl); overflow:hidden; display:block; text-decoration:none; color: var(--text); background: var(--bg); border:1px solid var(--border); }
-    .tile img { width:100%; height: 380px; object-fit: cover; transition: transform .35s ease; display:block; }
-    .tile:hover img { transform: scale(1.055); }
-    .overlay { position:absolute; inset:0; background: linear-gradient(180deg, transparent 30%, color-mix(in oklab, var(--accent) 60%, transparent)); opacity:0; transition: .35s; }
-    .tile:hover .overlay { opacity:1; }
-    .info { position:absolute; left:18px; bottom:18px; transform: translateY(12px); opacity:0; transition: .35s; }
-    .tile:hover .info { transform: translateY(0); opacity:1; }
+    .accent-text {
+      color: var(--accent-solid);
+      font-weight: 700;
+    }
 
-    /* =============================
-       8) Pricing
-       ============================= */
-    .pricing { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 24px; max-width: 980px; margin-inline:auto; }
-    .price-card { background: var(--surface); border:1px solid var(--border); border-radius: var(--radius-xl); padding: 26px; }
-    .price-card.highlight { border-color: var(--accent-2); box-shadow: var(--shadow-yellow); transform: translateY(-4px); }
-    .price { font-size: 42px; font-weight: 900; color: var(--accent); margin: 10px 0 14px; }
-    .price-card.highlight .price { color: var(--accent-2); }
-    .features { list-style:none; padding:0; margin: 16px 0 22px; }
-    .features li { display:flex; gap:10px; align-items:center; color:var(--muted); margin: 8px 0; }
-    .features li::before { content: '✓'; color: var(--accent); font-weight: 900; }
-    .price-card.highlight .features li::before { color: var(--accent-2); }
+    .lead {
+      max-width: 60ch;
+      margin: 10px auto 0;
+      color: #d7d7e3;
+      font-size: 1.25rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
 
-    /* =============================
-       9) Contact
-       ============================= */
-    #contact { background: var(--surface); }
-    .contact-wrap { max-width: 760px; margin: 0 auto; }
-    form.contact { display:grid; gap:14px; background: var(--bg); border:1px solid var(--border); border-radius: var(--radius-xl); padding: 22px; }
-    label { font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
-    input, textarea, select { width:100%; border:1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); padding: 14px; font: inherit; }
-    input:focus, textarea:focus, select:focus { outline:none; border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, transparent); }
-    textarea { min-height: 140px; resize: vertical; }
-    .ai-btn { background: var(--accent-2); border:0; padding: 14px 20px; border-radius:999px; font-weight:900; cursor:pointer; }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      color: #c7c7d5;
+      text-align: center;
+      font-size: 0.95rem;
+    }
 
-    .note { font-size: 14px; color: var(--muted); text-align:center; margin-top: 12px; }
-
-    /* =============================
-       10) Footer
-       ============================= */
-    footer { padding: 48px 0; border-top:1px solid var(--border); text-align:center; }
-    .foot { display:flex; flex-direction:column; align-items:center; gap: 14px; }
-    .foot .links { display:flex; gap: 18px; flex-wrap: wrap; justify-content:center; }
-    .foot a { color: var(--muted); text-decoration:none; font-weight:700; }
-    .foot a:hover { color: var(--text); }
-
-    /* =============================
-       11) Reveal Animations
-       ============================= */
-    .reveal { opacity:0; transform: translateY(28px); transition: .8s cubic-bezier(.2,.8,.2,1); }
-    .reveal.visible { opacity:1; transform: none; }
-
-    /* =============================
-       12) Utilities/Responsive
-       ============================= */
-    @media (max-width: 980px){
-      #about .grid { grid-template-columns: 1fr; }
-      .about-img { height: 380px; }
-      .work { grid-template-columns: 1fr; }
-      .main-nav { display:none; }
-      .menu-toggle { display:block; }
+    a {
+      color: var(--accent-solid);
+      text-decoration: none;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <div class="blob" aria-hidden="true"></div>
-
-  <!-- Header -->
-  <header id="navbar">
-    <div class="container nav-inner">
-      <a class="logo" href="#home" aria-label="Sociyaal home">
-        <!-- Replace with your hosted logo URL -->
-        <img src="https://placehold.co/200x60/000000/FFFFFF?text=Sociyaal" alt="Sociyaal Logo" />
-        <strong>Sociyaal</strong>
-      </a>
-      <nav class="main-nav" aria-label="Primary">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#process">Process</a>
-        <a href="#portfolio">Work</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle theme">🌓 Theme</button>
-      <div id="menu" class="menu-toggle" aria-label="Open menu" aria-expanded="false" role="button" tabindex="0">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Mobile Nav -->
-  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
-    <a href="#home">Home</a>
-    <a href="#services">Services</a>
-    <a href="#process">Process</a>
-    <a href="#portfolio">Work</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <!-- Hero -->
-  <section id="home">
-    <div class="container hero reveal">
-      <h1>We make social brands <span class="gradient">soar</span>.</h1>
-      <p>At the intersection of social & innovation. We blend brand strategy, content creation, and influencer campaigns to build authentic communities.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#contact">Let’s Connect</a>
-        <a class="btn btn-ghost" href="#portfolio">See Work</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><div class="num">+148%</div><div class="label">Avg. Engagement Lift</div></div>
-        <div class="stat"><div class="num">800+</div><div class="label">Creators in Network</div></div>
-        <div class="stat"><div class="num">₹50L+</div><div class="label">Ads Managed Monthly</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about">
-    <div class="container">
-      <h2 class="reveal">We are a new‑age creative <span class="accent">collective</span>.</h2>
-      <div class="grid">
-        <div class="about-copy reveal">
-          <div class="about-card">
-            <p>Sociyaal isn't just another agency. We are a team of strategists, storytellers, and creators obsessed with the pulse of internet culture. Founded in 2024, we operate at the intersection of culture, design, and technology.</p>
-            <p style="margin-top:10px">Our mission is to move past fleeting trends and build lasting brand love through authentic storytelling, community building, and data‑driven insights.</p>
-          </div>
-          <div style="margin-top:18px">
-            <h3 style="margin:0 0 10px">Brands we've boosted</h3>
-            <div class="clients">
-              <div class="client">Dailee</div>
-              <div class="client">Meriba</div>
-              <div class="client">Ideal Cameras</div>
-              <div class="client">Emmys</div>
-              <div class="client">Surabi</div>
-              <div class="client">JINTHAAA</div>
-            </div>
-          </div>
-        </div>
-        <div class="reveal">
-          <img class="about-img" src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1400&auto=format&fit=crop" alt="Creative team at work" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Marquee -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <b>Strategy <span class="dot"></span> Content <span class="dot"></span> Community <span class="dot"></span> Influence <span class="dot"></span> Growth <span class="dot"></span> Design</b>
-      <b>Strategy <span class="dot"></span> Content <span class="dot"></span> Community <span class="dot"></span> Influence <span class="dot"></span> Growth <span class="dot"></span> Design</b>
-    </div>
+  <div class="backdrop">
+    <div class="blob purple"></div>
+    <div class="blob yellow"></div>
   </div>
 
-  <!-- Services -->
-  <section id="services">
-    <div class="container">
-      <h2 class="reveal">Our capabilities</h2>
-      <div class="services">
-        <div class="card reveal" style="transition-delay:.05s">
-          <span class="chip">SMM</span>
-          <h3 style="margin:10px 0 6px">Social Media Management</h3>
-          <p>Daily posts, stories, reels, grid design, community engagement, and analytics.</p>
-        </div>
-        <div class="card reveal" style="transition-delay:.1s">
-          <span class="chip">Influence</span>
-          <h3 style="margin:10px 0 6px">Influencer Marketing</h3>
-          <p>Creator shortlisting, outreach, briefs, deliverables, tracking, and payments.</p>
-        </div>
-        <div class="card reveal" style="transition-delay:.15s">
-          <span class="chip">Content</span>
-          <h3 style="margin:10px 0 6px">Content Production</h3>
-          <p>On‑site shoots, UGC, editing for reels/shorts, motion graphics, and thumbnails.</p>
-        </div>
-        <div class="card reveal" style="transition-delay:.2s">
-          <span class="chip">Ads</span>
-          <h3 style="margin:10px 0 6px">Paid Ads (Meta/Google)</h3>
-          <p>Full‑funnel campaigns with creative testing, optimization, and weekly reporting.</p>
-        </div>
-        <div class="card reveal" style="transition-delay:.25s">
-          <span class="chip">Brand</span>
-          <h3 style="margin:10px 0 6px">Brand Strategy</h3>
-          <p>Positioning, audience research, messaging, tone, pillars, and campaign planning.</p>
-        </div>
-        <div class="card reveal" style="transition-delay:.3s">
-          <span class="chip">Web</span>
-          <h3 style="margin:10px 0 6px">Web & Landing Pages</h3>
-          <p>High‑converting pages with CRO best practices and fast load times.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <main id="home" class="hero container">
+    <h1><span class="gradient-text">Something extraordinary</span> is just around the corner.</h1>
+    <p class="lead"><span class="accent-text">sociyaal</span> is evolving. A new experience is almost here.</p>
+  </main>
 
-  <!-- Process -->
-  <section id="process">
-    <div class="container">
-      <h2 class="reveal">How we <span class="accent">run growth</span></h2>
-      <div class="process">
-        <div class="step reveal"><strong class="index">01</strong><h3>Discover</h3><p>Audit, goals, ICP, competitors, channels, & success metrics.</p></div>
-        <div class="step reveal"><strong class="index">02</strong><h3>Plan</h3><p>Strategy, content pillars, media plan, calendar, & creators.</p></div>
-        <div class="step reveal"><strong class="index">03</strong><h3>Produce</h3><p>Shoot, edit, copy, design, schedule, & go‑live.</p></div>
-        <div class="step reveal"><strong class="index">04</strong><h3>Optimize</h3><p>Measure, iterate, & scale what works—every single week.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Portfolio -->
-  <section id="portfolio">
-    <div class="container">
-      <h2 class="reveal">Selected <span class="accent">work</span></h2>
-      <div class="filter reveal">
-        <button class="active" data-filter="all">All</button>
-        <button data-filter="social">Social</button>
-        <button data-filter="branding">Branding</button>
-        <button data-filter="video">Video</button>
-        <button data-filter="web">Web</button>
-      </div>
-      <div class="work">
-        <a class="tile reveal" data-category="social" href="#">
-          <img src="https://images.unsplash.com/photo-1520975979650-0f3c0166c5c5?q=80&w=1400&auto=format&fit=crop" alt="E‑comm Campaign" />
-          <div class="overlay"></div>
-          <div class="info"><h3>E‑comm Campaign</h3><span class="accent">Social</span></div>
-        </a>
-        <a class="tile reveal" data-category="branding" href="#">
-          <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1400&auto=format&fit=crop" alt="Brand Identity" />
-          <div class="overlay"></div>
-          <div class="info"><h3>Brand Identity</h3><span class="accent">Branding</span></div>
-        </a>
-        <a class="tile reveal" data-category="video" href="#">
-          <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?q=80&w=1400&auto=format&fit=crop" alt="Video Shoot" />
-          <div class="overlay"></div>
-          <div class="info"><h3>Video Shoot</h3><span class="accent">Video</span></div>
-        </a>
-        <a class="tile reveal" data-category="web" href="#">
-          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1400&auto=format&fit=crop" alt="Web Design" />
-          <div class="overlay"></div>
-          <div class="info"><h3>Web Design</h3><span class="accent">Web</span></div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
-  <section id="pricing">
-    <div class="container">
-      <h2 class="reveal">Simple, <span class="accent">flexible</span> plans</h2>
-      <p class="note reveal">Pick a plan and we’ll tailor deliverables to your goals.</p>
-      <div class="pricing">
-        <div class="price-card reveal">
-          <h3>Starter</h3>
-          <div class="price">₹25,000<span style="font-size:14px;color:var(--muted)">/mo</span></div>
-          <ul class="features">
-            <li>12 posts + 4 reels</li>
-            <li>Monthly shoot</li>
-            <li>Community mgmt</li>
-            <li>Basic reporting</li>
-          </ul>
-          <a class="btn btn-ghost" href="#contact">Choose Starter</a>
-        </div>
-        <div class="price-card highlight reveal">
-          <h3>Growth</h3>
-          <div class="price">₹60,000<span style="font-size:14px;color:var(--muted)">/mo</span></div>
-          <ul class="features">
-            <li>16 posts + 8 reels</li>
-            <li>Bi‑weekly shoots</li>
-            <li>Influencer seeding</li>
-            <li>Weekly reporting</li>
-          </ul>
-          <a class="btn btn-primary" href="#contact">Choose Growth</a>
-        </div>
-        <div class="price-card reveal">
-          <h3>Scale</h3>
-          <div class="price">Custom</div>
-          <ul class="features">
-            <li>Always‑on content</li>
-            <li>Paid ads mgmt</li>
-            <li>Creator campaigns</li>
-            <li>Daily optimization</li>
-          </ul>
-          <a class="btn btn-ghost" href="#contact">Choose Scale</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container contact-wrap">
-      <h2 class="reveal">Let’s <span class="accent">fly</span> together.</h2>
-      <p class="note reveal">Ready to start? Have a question? Fill the form — we’ll reply fast.</p>
-      <form class="contact reveal" id="contactForm">
-        <div>
-          <label for="name">Name</label>
-          <input id="name" name="name" type="text" placeholder="Your name" required />
-        </div>
-        <div>
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="name@company.com" required />
-        </div>
-        <div>
-          <label for="service">What do you need?</label>
-          <select id="service" name="service">
-            <option>Social Media Management</option>
-            <option>Influencer Marketing</option>
-            <option>Content Production</option>
-            <option>Paid Ads</option>
-            <option>Website / Landing Page</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div>
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Tell us about your brand, goals, and budget..." required></textarea>
-        </div>
-        <div style="display:grid; gap:10px">
-          <button type="button" id="sendBtn" class="btn btn-primary">Send Message</button>
-          <button type="button" id="aiBtn" class="ai-btn">✨ Analyze My Goals & Suggest a Plan</button>
-        </div>
-        <div id="aiResponse" class="note" style="display:none"></div>
-      </form>
-      <p class="note reveal">hello@sociyaal.com • +91 000 000 0000</p>
-    </div>
-  </section>
-
-  <!-- Footer -->
   <footer>
-    <div class="container foot">
-      <a class="logo" href="#home"><img src="https://placehold.co/200x60/000000/FFFFFF?text=S" alt="Sociyaal logo small" /><strong>Sociyaal</strong></a>
-      <div class="links">
-        <a href="#services">Services</a>
-        <a href="#process">Process</a>
-        <a href="#portfolio">Work</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#about">About</a>
-      </div>
-      <p class="note">© 2025 Sociyaal. All rights reserved. | Privacy Policy</p>
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <span>© 2025 Sociyaal • All Rights Reserved</span>
+      <span style="opacity:.8">hello@sociyaal.com • <a href="https://wa.me/918220930144" target="_blank">+91 82209 30144</a></span>
     </div>
   </footer>
-
-  <script>
-    // ============================
-    // 1) Navbar scroll state
-    // ============================
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 24);
-    });
-
-    // ============================
-    // 2) Mobile menu
-    // ============================
-    const menu = document.getElementById('menu');
-    const mobileNav = document.getElementById('mobileNav');
-    function toggleMenu(){
-      menu.classList.toggle('active');
-      const active = mobileNav.classList.toggle('active');
-      menu.setAttribute('aria-expanded', active ? 'true' : 'false');
-      document.body.style.overflow = active ? 'hidden' : '';
-    }
-    menu.addEventListener('click', toggleMenu);
-    mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click', toggleMenu));
-
-    // ============================
-    // 3) Reveal on scroll
-    // ============================
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
-    }, { threshold: .12 });
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-    // ============================
-    // 4) Portfolio filter
-    // ============================
-    document.querySelectorAll('.filter button').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        document.querySelectorAll('.filter button').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        const f = btn.dataset.filter;
-        document.querySelectorAll('.tile').forEach(t=>{
-          const show = f==='all' || t.dataset.category===f;
-          t.style.display = show ? 'block' : 'none';
-        });
-      });
-    });
-
-    // ============================
-    // 5) Theme toggle (persist)
-    // ============================
-    const themeToggle = document.getElementById('themeToggle');
-    const root = document.documentElement;
-    const saved = localStorage.getItem('sociyaal-theme');
-    if(saved==='dark'){ document.body.classList.add('theme-dark'); themeToggle.setAttribute('aria-pressed','true'); }
-    themeToggle.addEventListener('click', ()=>{
-      const dark = document.body.classList.toggle('theme-dark');
-      themeToggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
-      localStorage.setItem('sociyaal-theme', dark ? 'dark' : 'light');
-    });
-
-    // ============================
-    // 6) Blob cursor follow
-    // ============================
-    const blob = document.querySelector('.blob');
-    let bx = window.innerWidth/2, by = window.innerHeight/2;
-    let tx = bx, ty = by;
-    window.addEventListener('mousemove', (e)=>{ tx = e.clientX; ty = e.clientY; });
-    function animate(){
-      bx += (tx - bx) * 0.08; by += (ty - by) * 0.08; blob.style.transform = `translate(${bx}px, ${by}px)`;
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    // ============================
-    // 7) Contact form (mock) + AI helper
-    // ============================
-    const sendBtn = document.getElementById('sendBtn');
-    const aiBtn = document.getElementById('aiBtn');
-    const aiResponse = document.getElementById('aiResponse');
-
-    sendBtn.addEventListener('click', ()=>{
-      aiResponse.style.display='block';
-      aiResponse.style.color='green';
-      aiResponse.textContent = '✅ Thanks! Your request has been (simulated) sent. We\'ll be in touch soon.';
-      document.getElementById('contactForm').reset();
-    });
-
-    aiBtn.addEventListener('click', async ()=>{
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const service = document.getElementById('service').value;
-      const message = document.getElementById('message').value.trim();
-      aiResponse.style.display='block';
-
-      if(!name || !email || !message){
-        aiResponse.style.color = 'crimson';
-        aiResponse.textContent = 'Please fill your name, email and message for a quick analysis.';
-        return;
-      }
-
-      aiResponse.style.color = '';
-      aiResponse.textContent = 'Analyzing…';
-
-      // NOTE: This is a placeholder. Plug your server-side endpoint or Gemini API securely.
-      await new Promise(r=>setTimeout(r, 1200));
-
-      const plan = /budget|₹|rs|inr|lakhs?/i.test(message) ? 'Growth' : (service.includes('Website') ? 'Scale' : 'Starter');
-      aiResponse.textContent = `Hey ${name.split(' ')[0]}, thanks for the context!\n\nRecommended plan: ${plan}.\n• Kickoff: audit + 30‑day content calendar\n• Quick wins: 3 reel concepts + 1 UGC collab\n• Next: set up conversion tracking + weekly review.\n\nA human from Sociyaal will follow up shortly ✌️`;
-    });
-  </script>
 </body>
 </html>
