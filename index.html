@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sociyaal — Coming Soon</title>
+  <meta name="description" content="Sociyaal is crafting a premium, immersive web experience. Launching soon." />
+  <meta name="theme-color" content="#8b3ec2" />
+  <meta property="og:title" content="Sociyaal — Coming Soon" />
+  <meta property="og:description" content="We build digital connection for bold brands. Launching soon." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://placehold.co/1200x630/9669ef/ffffff?text=Sociyaal" />
+  <link href="https://fonts.googleapis.com/css2?family=Dystopian:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0b12;
+      --text: #f7f7fb;
+      --muted: #c9c9d6;
+      --border: #23233a;
+      --accent-gradient: linear-gradient(90deg, #feda00 0%, #8b3ec2 100%);
+      --accent-solid: #feda00;
+      --container: 1100px;
+      --font: 'Dystopian', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    .backdrop {
+      position: fixed;
+      inset: -20% -10% 0 -10%;
+      z-index: -2;
+      filter: saturate(115%);
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+    }
+
+    .blob.purple {
+      width: 65vw; height: 65vw; left: -10%; top: -10%;
+      background: radial-gradient(closest-side, #8b3ec2, transparent);
+    }
+
+    .blob.yellow {
+      width: 60vw; height: 60vw; right: -10%; bottom: -5%;
+      background: radial-gradient(closest-side, #feda00, transparent);
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1, p, footer {
+      font-family: var(--font);
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: clamp(42px, 6vw, 80px);
+      line-height: 1.2;
+      margin: 0 0 20px;
+    }
+
+    .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .accent-text {
+      color: var(--accent-solid);
+      font-weight: 700;
+    }
+
+    .lead {
+      max-width: 60ch;
+      margin: 10px auto 0;
+      color: #d7d7e3;
+      font-size: 1.25rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      color: #c7c7d5;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: var(--accent-solid);
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop">
+    <div class="blob purple"></div>
+    <div class="blob yellow"></div>
+  </div>
+
+  <main id="home" class="hero container">
+    <h1><span class="gradient-text">Something extraordinary</span> is just around the corner.</h1>
+    <p class="lead"><span class="accent-text">Sociyaal</span> is evolving. A new experience is almost here.</p>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <span>© 2025 Sociyaal • All Rights Reserved</span>
+      <span style="opacity:.8">hello@sociyaal.com • <a href="https://wa.me/918220930144" target="_blank">+91 82209 30144</a></span>
+    </div>
+  </footer>
+</body>
+</html>
