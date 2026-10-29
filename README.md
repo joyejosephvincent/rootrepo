@@ -23,7 +23,7 @@ Until then, visitors get an enquiry summary with Email, WhatsApp and Copy button
 - Client logo marquee: add files to `assets/clients/` (see the README there). Edit the logo list in `index.html`.
 
 ## Before launch
-- Confirm the testimonial wording and names with each client, and confirm the performance figures (2.1M reach, 4.8x ROAS, 800+ creators, 50L+ ad spend) with verified reporting periods.
+- Confirm the testimonial wording and names with each client, and confirm the performance figures (2.1M reach, 4.8x ROAS, 800+ creators, 14L+ ad spend) with verified reporting periods.
 
 ## About video box
 In `index.html`, find `class="video" data-yt=""` and paste a YouTube link into `data-yt` (watch, youtu.be or shorts links all work). Optional poster photo: save `assets/about-poster.jpg`. Until a link is set, the box shows "coming soon".

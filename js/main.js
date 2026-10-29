@@ -350,6 +350,53 @@
     if (!reduce) requestAnimationFrame(tick);
   });
 
+  /* ---------- What we do: auto-scrolling services (pauses on hover or touch, Pause button, arrows) ---------- */
+  $$(".sv-wrap[data-auto]").forEach(function (wrap) {
+    var track = $(".sv-track", wrap), toggle = $(".sv-toggle", wrap), state = $(".sv-state", wrap);
+    var prev = $(".sv-prev", wrap), next = $(".sv-next", wrap);
+    var first = $(".sv", track), dup = $(".sv[data-dup]", track);
+    if (!track || !first) return;
+    var loopW = 0, pos = 0, lastSet = 0, playing = !reduce, last = null, held = false, hover = false, SPEED = 42;
+    function measure() { loopW = dup ? dup.offsetLeft - first.offsetLeft : 0; }
+    function setState() {
+      wrap.classList.toggle("paused", !playing);
+      if (state) state.textContent = playing ? "Auto scrolling" : "Paused";
+      if (toggle) { toggle.textContent = playing ? "Pause" : "Play"; toggle.setAttribute("aria-pressed", playing ? "false" : "true"); }
+    }
+    function tick(t) {
+      if (last === null) last = t;
+      var dt = Math.min(64, t - last); last = t;
+      if (playing && !held && !hover && loopW) {
+        if (Math.abs(track.scrollLeft - lastSet) > 2) pos = track.scrollLeft;
+        pos += SPEED * dt / 1000;
+        if (pos >= loopW) pos -= loopW;
+        track.scrollLeft = pos; lastSet = track.scrollLeft;
+        if (Math.abs(lastSet - pos) > 1) pos = lastSet;
+      }
+      requestAnimationFrame(tick);
+    }
+    if (toggle) toggle.addEventListener("click", function () { playing = !playing; last = null; pos = track.scrollLeft; setState(); });
+    function step() { return first.offsetWidth + 20; }
+    function go(dir) {
+      if (dir < 0 && track.scrollLeft < step() && loopW) track.scrollLeft += loopW;
+      track.scrollBy({ left: dir * step(), behavior: reduce ? "auto" : "smooth" });
+      setTimeout(function () { pos = track.scrollLeft; lastSet = pos; }, 450);
+    }
+    if (prev) prev.addEventListener("click", function () { go(-1); });
+    if (next) next.addEventListener("click", function () { go(1); });
+    track.addEventListener("scroll", function () {
+      if (loopW && track.scrollLeft >= loopW + 4 && (!playing || hover || held)) track.scrollLeft -= loopW;
+    }, { passive: true });
+    track.addEventListener("mouseenter", function () { hover = true; });
+    track.addEventListener("mouseleave", function () { hover = false; pos = track.scrollLeft; lastSet = pos; });
+    ["pointerdown", "touchstart"].forEach(function (ev) { track.addEventListener(ev, function () { held = true; }, { passive: true }); });
+    ["pointerup", "pointercancel", "touchend"].forEach(function (ev) { track.addEventListener(ev, function () { setTimeout(function () { held = false; pos = track.scrollLeft; lastSet = pos; }, 120); }, { passive: true }); });
+    window.addEventListener("resize", measure);
+    window.addEventListener("load", measure);
+    measure(); setState();
+    if (!reduce) requestAnimationFrame(tick);
+  });
+
   /* ---------- Packages: spotlight and gentle 3D tilt that follow the mouse ---------- */
   $$(".plan").forEach(function (p) {
     $$("li", p).forEach(function (li, i) { li.style.setProperty("--k", i); });
